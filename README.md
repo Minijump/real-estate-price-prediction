@@ -111,4 +111,36 @@ Here we can see that the dataframe consists only of numerical values like requir
 We did also check the range of price across all the properties and the boxplot (below) looks quite normal. 
 
 <img title="Boxplot price range" alt="boxplot" src="./images/boxplot.png">
---
+
+# Analysis
+
+On the folder data_analysis I tried to analyse the data that was scrapped during the previous part. You can have an overview of my analysis in the file [Main_analyse](./data_analysis/Main_analyse.ipynb). My main goal was to visualise the influence of the living area on the price of a property.
+
+The following plot shows the price of a property in function of the living area, we do not see any relation between these two variabes.
+
+<div style="text-align: center;">
+<img title="Effect of the living area on the price" alt="effect living area" src="./data_analysis/variable_on_price/images/liv_area.jpg">
+</div>
+
+This is due to the fact that each locality has his own price per square meter. We can see on the following graph that there is a clear correlation between the living area of one property and his price, at least for the Locality tested.
+
+<div style="text-align: center;">
+<img title="Effect of the living area on the price" alt="effect living area" src="./data_analysis/area_analyse/images/area_1_loc.jpg">
+</div>
+
+Testing all the localities one by one would be impossible. This is why I used the following strategy:
+* with 80% of the dataset compute the price per square meters for each localities
+* with the 20% compare the 2 following thing:
+* the price of the property
+* the value of (price/sqaure_meter) * living area
+
+The given strategy will gives us a graph comparing two prices, the more the dots will be close to the reference line x=y the more the variable living area is important in the price of a property.
+
+<div style="text-align: center;">
+<img title="prediction price" alt="prediction price" src="./data_analysis/area_analyse/images/prediction_price.png">
+</div>
+
+While there is still a great variations between the value of the supposed price and the value of the real price we can see that the living area has a great influence on the price
+
+* dots __above__ the line y=x are properties which have a real price lower than expected, it can be caused by a huge propery which has to be renoved
+* dots __under__ the line y=x are properties which havea real price higher than expected, it can be caused by a property which is as new,...
