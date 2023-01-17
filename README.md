@@ -1,4 +1,5 @@
 # real-estate-price-prediction
+# Data scrapping
 
 ## Description
 The goal of this project was to collect information from the [immoweb website](https://www.immoweb.be/en/search/house/for-sale?countries=BE&page=1&orderBy=relevance). We had to gather information about at least 10,000 properties all over Belgium and create a CSV file with the following columns.
