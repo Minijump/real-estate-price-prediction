@@ -145,3 +145,25 @@ While there is still a great variations between the value of the supposed price 
 
 * dots __above__ the line y=x are properties which have a real price lower than expected, it can be caused by a huge propery which has to be renoved
 * dots __under__ the line y=x are properties which havea real price higher than expected, it can be caused by a property which is as new,...
+
+# Model
+This part is divided in 3 different file:
+* __create_csv__, this file will take the csv containing the data we scrapped and create a new csv file that will be used to train and test our model
+* __model__, is a file containing my tests on the differents model, hyperparametters, ...
+* __model_opti__, this file is the model I used.
+
+I used xgboost as regressor model and I got an efficiency of about %. Here are some visualisations of my results:
+At first we can see the effect every features have on the model.
+<div style="text-align: center;">
+<img title="effect of features" alt="effect of the features" src="./model_training/images/importance_features.png">
+</div>
+
+On the second plot, we see the efficiency of the model, the price the model predicted in function of the real price of the property.
+<div style="text-align: center;">
+<img title="efficiency" alt="efficiencys" src="./model_training/images/efficiency_model.png">
+</div>
+
+Now, let's zoom on the part where real price is under 700000 euros. We see that the model overestimate the price of these properties, this can cause a real problem........
+<div style="text-align: center;">
+<img title="efficiency zoom" alt="efficiency zoom" src="./model_training/images/efficiency_model_zoom.png">
+</div>
