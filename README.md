@@ -152,8 +152,8 @@ This part is divided in 3 different file:
 * __model__, is a file containing my tests on the differents model, hyperparametters, ...
 * __model_opti__, this file is the model I used.
 
-I used xgboost as regressor model and I got an efficiency of about %. Here are some visualisations of my results:
-At first we can see the effect every features have on the model.
+I used xgboost as regressor model and I got an efficiency of about 76-78%. Here are some visualisations of my results:
+At first we can see the effect every features have on the model. We see that the living area and the median price per square meter for each localities and the type of property have the highest influence. We also see that the column price_squared_meter_was_missing has no effect. This is normal in my implementation, indeed the model is train witout missing values on this column.
 <div style="text-align: center;">
 <img title="effect of features" alt="effect of the features" src="./model_training/images/importance_features.png">
 </div>
@@ -163,7 +163,7 @@ On the second plot, we see the efficiency of the model, the price the model pred
 <img title="efficiency" alt="efficiencys" src="./model_training/images/efficiency_model.png">
 </div>
 
-Now, let's zoom on the part where real price is under 700000 euros. We see that the model overestimate the price of these properties, this can cause a real problem........
+Now, let's zoom on the part where real price is under 700000 € (values that interest most of the people). We see that the model overestimate the price of these properties.
 <div style="text-align: center;">
 <img title="efficiency zoom" alt="efficiency zoom" src="./model_training/images/efficiency_model_zoom.png">
 </div>
