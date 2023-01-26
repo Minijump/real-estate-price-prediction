@@ -47,15 +47,15 @@ Our program consists of three different parts. The first part of the program is 
 ### 1) Collecting the links
 The aim of the [links_collection.ipynb](./data_acquisition/links_collection.ipynb) file is to collect the links of all houses and apartment for sale on the immoweb website. In practice, the house and apartment sections are done in parallel (using threads) and both are following the same algorithm:
 * __first__, The algorithm goes through the 333 pages that are available:
-* __then__, scrapes these pages to get all the links it contains
-* <img title="333 pages" alt="immoweb picture" src="./images/333_pages.png">
+* __then__, scrapes these pages to get all the links it contains.
+* <img title="333 pages" alt="immoweb picture" src="./images/333_pages.png" width="600">
 * __lastly__, This part creates a csv file called [links.csv](./data_acquisition/links.csv) which stores all the links collected.
 
 ### 2) Scraping all the links
 For all the links that are stored in the links.csv file, [house_scrapping.ipynb](./data_acquisition/house_scrapping.ipynb) will:
 * open the link
 * scrape the available information
-* <img title="one page example" alt="immoweb picture2" src="./images/infos.png">
+* <img title="one page example" alt="immoweb picture2" src="./images/infos.png" width="400">
 * store all the collected information into different csv files called all_info_TeamMember1_1-5000.csv, all_info_TeamMember1_1-10000.csv, all_info_TeamMember2_10000-15000.csv, etc. These files will be merged in the next step of the program. 
 
 In this csv file, each line represents a new house/apartment. The column names are given in the Description section. In this part a special type of multithreading was implemented, which is called teamwork: 
@@ -82,7 +82,7 @@ This workprocess will take about 1 hour.
 
 This (shared) workprocess can take up to 4 hours when divided between two or more computers. When there's a problem while running, the code will store the scraped information under a CSV file. The program will continue working with a new CSV file. You can add your name to distinguish between team members.
 
-<img title="Saving information" alt="saving" src="./images/saving.png">
+<img title="Saving information" alt="saving" src="./images/saving.png" width="800">
 
 This will of course cause an additional task to merge all the CSV files. The [merge_and_clean_data.ipynb](./data_acquisition/merge_and_clean_data.ipynb) will execute this for you. 
 
@@ -93,11 +93,11 @@ The function 'create_df' will merge all the csv files into a single dataframe. T
 ## Visuals
 In this part we would like to illustrate some visuals about the output of this program. After cleaning the data, the dataframe looks as follows:
 
-<img title="Sample output data" alt="clean dataset" src="./images/cleaned_dataset.png">
+<img title="Sample output data" alt="clean dataset" src="./images/cleaned_dataset.png" width="1200">
 
 Here we can see that the dataframe consists only of numerical values like required. We can see that the data is (almost) evenly distributed between the two property types (house/apartment) as we see from the pie chart below:
 
-<img title="Pie chart distribution of data" alt="pie chart" src="./images/piechart.png">
+<img title="Pie chart distribution of data" alt="pie chart" src="./images/piechart.png" width="1500">
 
 # Analysis
 
