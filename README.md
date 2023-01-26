@@ -31,17 +31,13 @@ The dataset had to be clean in the sense of recording only numerical values.
 
 The following packages were useful in order to make the project work: 
 
-- json (built-in); 
-    - This library provides a representation of the JavaScript Object Notation (JSON) with support for parsing, printing, and manipulating JSON values. 
-- pandas (pip install pandas);
-    - This library offers data structure and operations for data analysis and manipulation.
-- bs4 (pip install bs4);
-    - BeautifulSoup is a library for getting data out of XML and HTML files. The library's folder is bs4. 
-- selenium (pip install selenium);
-    - This library is useful when getting the content of dynamic web pages which rely on Javascript. It is useful when information is accessible by clicking on buttons. 
-- threading.
-    - This module can be used to execute tasks concurrently. 
-- matplotlib
+* json (built-in); 
+* pandas (pip install pandas);
+* bs4 (pip install bs4);
+* selenium (pip install selenium);
+* threading.
+* matplotlib
+* sklearn
 
 
 ## Structure of the code
@@ -84,12 +80,6 @@ This workprocess will take about 1 hour.
 
 ### 2) Scraping all the links
 
-To scrape each propertylink we have parsed the HTML website using BeautifulSoup library. We saw that the information was under a "script" with type "text/javascript" and that property items could be found in "window_classified".
-
-<img title="HTML documentation" alt="html" src="./images/html.png">
-
-We converted the needed information into a Python dictionary using JSON. 
-
 This (shared) workprocess can take up to 4 hours when divided between two or more computers. When there's a problem while running, the code will store the scraped information under a CSV file. The program will continue working with a new CSV file. You can add your name to distinguish between team members.
 
 <img title="Saving information" alt="saving" src="./images/saving.png">
@@ -108,10 +98,6 @@ In this part we would like to illustrate some visuals about the output of this p
 Here we can see that the dataframe consists only of numerical values like required. We can see that the data is (almost) evenly distributed between the two property types (house/apartment) as we see from the pie chart below:
 
 <img title="Pie chart distribution of data" alt="pie chart" src="./images/piechart.png">
-
-We did also check the range of price across all the properties and the boxplot (below) looks quite normal. 
-
-<img title="Boxplot price range" alt="boxplot" src="./images/boxplot.png">
 
 # Analysis
 
@@ -149,7 +135,7 @@ While there is still a great variations between the value of the supposed price 
 # Model
 This part is divided in 3 different file:
 * __create_csv__, this file will take the csv containing the data we scrapped and create a new csv file that will be used to train and test our model
-* __model__, is a file containing my tests on the differents model, hyperparametters, ...
+* __model__, is a file containing my tests on the differents model, hyperparametters, ... (do not run it, it takes time)
 * __model_opti__, this file is the model I used.
 
 I used xgboost as regressor model and I got an efficiency of about 76-78%. Here are some visualisations of my results:
