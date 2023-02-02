@@ -17,7 +17,8 @@ ENV FLASK_APP=app.py
 EXPOSE 5000
 
 # Define the command to run the app
-CMD ["flask", "run", "--host=0.0.0.0"]
+#CMD ["flask", "run", "--host=0.0.0.0"]
+CMD ["flask", "run"]
 
 # create requirements: pipreqs 'foldername' (--force)-> force if ou want to crush an existing requirement file
 # cd Documents/Becode/real-estate-price-prediction/API_deployment
