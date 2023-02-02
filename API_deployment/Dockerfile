@@ -1,6 +1,5 @@
 # Use an official Python runtime as the base image
-#FROM python:3.8-slim-buster
-FROM python:3.10
+FROM python:3.8-slim-buster
 
 # Set the working directory in the container to /app
 WORKDIR /app
@@ -18,8 +17,7 @@ ENV FLASK_APP=app.py
 EXPOSE 5000
 
 # Define the command to run the app
-#CMD ["flask", "run", "--host=0.0.0.0"]
-CMD ["flask", "run"]
+CMD ["flask", "run", "--host=0.0.0.0"]
 
 # create requirements: pipreqs 'foldername' (--force)-> force if ou want to crush an existing requirement file
 # cd Documents/Becode/real-estate-price-prediction/API_deployment
