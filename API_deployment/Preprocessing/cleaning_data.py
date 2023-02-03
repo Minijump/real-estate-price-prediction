@@ -75,11 +75,11 @@ def check_swimming_pool(data) -> dict:
   try:
     if not isinstance(data['Swimming_pool'], int) :
       print('Swimming_pool field must be 0 or 1, field set to False')
-      data['Swimming_pool'] == 0
+      data['Swimming_pool'] = 0
       data["Swimming_pool_was_missing"] = 1
   except KeyError:
     print('Swimming_pool field is missing, field set to False')
-    data['Swimming_pool'] == 0
+    data['Swimming_pool'] = 0
     data["Swimming_pool_was_missing"] = 1
 
   return data
