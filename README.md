@@ -1,4 +1,4 @@
-# real-estate-price-prediction
+# Real-estate-price-prediction
 # Data scrapping
 
 ## Description
@@ -11,17 +11,9 @@ The goal of this project was to collect information from the [immoweb website](h
 * __Number of rooms__
 * __Living Area__
 * __Fully equipped kitchen__ (Yes/No)
-* __Furnished__ (Yes/No)
-* __Open fire__ (Yes/No)
-* __Terrace__ (Yes/No)
- -If yes: Area
-* __Garden__ (Yes/No)
- -If yes: Area
 * __Surface of the land__ (is none for each line, the information is given in the line : Surface area of the plot of land)
-* __Surface area of the plot of land__ 
-* __Number of facades__
-* __Swimming pool__ (Yes/No)
 * __State of the building__ (New, to be renovated, ...)
+* __...__
 
 
 The dataset had to be clean in the sense of recording only numerical values. 
@@ -48,14 +40,14 @@ Our program consists of three different parts. The first part of the program is 
 The aim of the [links_collection.ipynb](./data_acquisition/links_collection.ipynb) file is to collect the links of all houses and apartment for sale on the immoweb website. In practice, the house and apartment sections are done in parallel (using threads) and both are following the same algorithm:
 * __first__, The algorithm goes through the 333 pages that are available:
 * __then__, scrapes these pages to get all the links it contains.
-* <img title="333 pages" alt="immoweb picture" src="./images/333_pages.png" width="600">
+* <img title="333 pages" alt="immoweb picture" src="./images/333_pages.png" width="500">
 * __lastly__, This part creates a csv file called [links.csv](./data_acquisition/links.csv) which stores all the links collected.
 
 ### 2) Scraping all the links
 For all the links that are stored in the links.csv file, [house_scrapping.ipynb](./data_acquisition/house_scrapping.ipynb) will:
 * open the link
 * scrape the available information
-* <img title="one page example" alt="immoweb picture2" src="./images/infos.png" width="400">
+* <img title="one page example" alt="immoweb picture2" src="./images/infos.png" width="300">
 * store all the collected information into different csv files called all_info_TeamMember1_1-5000.csv, all_info_TeamMember1_1-10000.csv, all_info_TeamMember2_10000-15000.csv, etc. These files will be merged in the next step of the program. 
 
 In this csv file, each line represents a new house/apartment. The column names are given in the Description section. In this part a special type of multithreading was implemented, which is called teamwork: 
@@ -93,11 +85,11 @@ The function 'create_df' will merge all the csv files into a single dataframe. T
 ## Visuals
 In this part we would like to illustrate some visuals about the output of this program. After cleaning the data, the dataframe looks as follows:
 
-<img title="Sample output data" alt="clean dataset" src="./images/cleaned_dataset.png" width="1200">
+<img title="Sample output data" alt="clean dataset" src="./images/cleaned_dataset.png" width="1000">
 
 Here we can see that the dataframe consists only of numerical values like required. We can see that the data is (almost) evenly distributed between the two property types (house/apartment) as we see from the pie chart below:
 
-<img title="Pie chart distribution of data" alt="pie chart" src="./images/piechart.png" width="1500">
+<img title="Pie chart distribution of data" alt="pie chart" src="./images/piechart.png" width="1000">
 
 # Analysis
 
@@ -106,7 +98,7 @@ On the folder data_analysis I tried to analyse the data that was scrapped during
 The following plot shows the price of a property in function of the living area, we do not see any relation between these two variabes.
 
 <div style="text-align: center;">
-<img title="Effect of the living area on the price" alt="effect living area" src="./data_analysis/variable_on_price/images/liv_area.jpg">
+<img title="Effect of the living area on the price" alt="effect living area" src="./data_analysis/variable_on_price/images/liv_area.jpg" width="550">
 </div>
 
 This is due to the fact that each locality has his own price per square meter. We can see on the following graph that there is a clear correlation between the living area of one property and his price, at least for the Locality tested.
@@ -153,3 +145,29 @@ Now, let's zoom on the part where real price is under 700000 € (values that in
 <div style="text-align: center;">
 <img title="efficiency zoom" alt="efficiency zoom" src="./model_training/images/efficiency_model_zoom.png">
 </div>
+
+# API deployment
+In this part the goal was to create and deploy an API which predict the price of a property in functions of its features. Also, this part isn't a sucess but I will anyway expose my work. The work was divided into 3 parts:
+
+### Creation a a flask application
+The First part is to create a flask application which will create an API which can work locally. You can find the code in the file [app.py](.\API_deployment\app.py). After running the app with python you can find the API with a Post method on the following path: "http://127.0.0.1:5000/predict". The following fields have to be in a dictionnary called _data_ in the request body to make the API work:
+* __"Living_Area"__ : int
+* __"Type_of_property"__: "HOUSE" or "APARTMENT"
+* __"Number_of_rooms"__: int
+* __"Locality"__: int
+* __"Swimming_pool"__: 0 or 1 (optional)
+
+Here is an example of a request you can make with your terminal:
+_Invoke-WebRequest -Method POST -Uri "http://127.0.0.1:5000/predict" -Body '{"data":{"Living_Area": 90, "Type_of_property": "HOUSE", "Number_of_rooms": 4, "Locality": 6637, "Swimming_pool": 0}}' -ContentType "application/json" -Headers @{'Content-Type'='application/json'}_
+
+If the prediction could proceed, the prediction value and the status code 200 will be in the response content. Here is an example of response you can get:
+_Content: {"prediction": 215400.0,"status code": 200}_
+
+### Docker
+The next part consisted in creating a docker image. This was the tricky part for me. In the previous part of the project I was using  the XGBoost model to make my prediction but here it caused problem. I had hard time loading the model with docker. This is why in this part of the project you will see that I am using a RandomForest regressor. To create the image I had to add 2 files: [_requirements.txt_](.\API_deployment\requirements.txt) and [_Dockerfile_](.\API_deployment\Dockerfile).
+
+As mentionned above this part caused me problems, it is in consequence the reason why I could not finish proprelly and totally all the parts of the project (html page, try except,..). 
+
+### Render.com
+The final part consisted in deploying this API online. I used the service render.com. The only steps required is to subscribe, connect his GitHub and deploy the app.
+You can see the 'result' with the following [link](https://prediction-app-real-estate.onrender.com/)
